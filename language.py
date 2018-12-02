@@ -17,7 +17,10 @@ parser = CoreNLPParser(url='http://localhost:9000')
 #sentences = parser.raw_parse('Incredible to be with our GREAT HEROES today in California.')
 
 sentences = []
-for i in range(0, 10):
+range = 20
+upper = randint(range, len(tweets))
+lower = upper - range
+for i in range(lower, upper):
     print(i)
     sentences += parser.raw_parse(tweets[i])
 #sentences += parser.raw_parse(tweets[0])
@@ -30,10 +33,8 @@ grammar = CFG(nltk.Nonterminal('ROOT'), productions)
 print(grammar)
 
 new_tweets = []
-for sentence in generate(grammar, depth=8):
-    accept = randint(1, 10000)
-    if accept == 1:
-        string = str(' '.join(sentence))
-        if not string in new_tweets:
-            new_tweets.append(string)
-            print(string)
+for sentence in generate(grammar, depth=8, n=100):
+    string = ' '.join(sentence)
+    if not string in new_tweets:
+        new_tweets.append(string)
+        print(string)
