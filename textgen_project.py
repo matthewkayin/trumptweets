@@ -28,10 +28,10 @@ tool = language_check.LanguageTool('en-US')
 seed_word = None
 degree_freedom = 0.3
 dropout = 0
-num_epochs = 20
-num_gen_epochs = 10
+num_epochs = 10
+num_gen_epochs = 5
 tweet_length = 140
-tweets_to_use = pick_random_sample(tweets=tweets, number_to_pick=500)
+tweets_to_use = pick_random_sample(tweets=tweets, number_to_pick=50)
 textgen = textgenrnn()
 textgen.reset()
 
