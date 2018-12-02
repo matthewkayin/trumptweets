@@ -20,10 +20,10 @@ def remove_hyperlink(string):
 
 def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt", get_text=get_tweet_text_data):
     tweet_text = get_text(filename=filename)
-    tweet_text = tweet_text.lower()
-    tweet_text = tweet_text.replace("....", ".")
-    tweet_text = tweet_text.replace("...", ".")
-    tweet_text = tweet_text.replace(". . .", ".")
+    # tweet_text = tweet_text.lower()
+    tweet_text = tweet_text.replace("....", " ")
+    tweet_text = tweet_text.replace("...", " ")
+    tweet_text = tweet_text.replace(". . .", " ")
     tweet_text = tweet_text.replace(",", "")
     tweet_text = tweet_text.replace("!", ".")
     tweet_text = tweet_text.replace("?", ".")
@@ -47,7 +47,8 @@ def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt", get_text=get_t
         potential_sentence = remove_hyperlink(potential_sentence)
         potential_sentence = potential_sentence.strip()
         if potential_sentence != "" and potential_sentence != " ":
-            sentences.append(potential_sentence.replace(".", ""))
+            # .replace(".", "")
+            sentences.append(potential_sentence)
     
     return sentences
 

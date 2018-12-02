@@ -25,11 +25,12 @@ else:
     tweets = dc.get_cleaned_up_tweet_text_data()
 
 tool = language_check.LanguageTool('en-US')
-seed_word = "democrats"
-degree_freedom = 0.8
-dropout = 5
+seed_word = None
+degree_freedom = 0.7
+dropout = 0
 num_epochs = 3
 num_gen_epochs = 3
+tweet_length = 140
 tweets_to_use = pick_random_sample(tweets=tweets, number_to_pick=50)
 textgen = textgenrnn()
 textgen.reset()
@@ -39,12 +40,13 @@ textgen.train_on_texts(tweets_to_use,
                        num_epochs=num_epochs,
                        gen_epochs=num_gen_epochs,
                        dropout=dropout,
-                       max_gen_length=140)
+                       max_gen_length=tweet_length)
 
 output = textgen.generate(3,
                           prefix=seed_word,
                           temperature=degree_freedom,
-                          return_as_list=True)
+                          return_as_list=True,
+                          max_gen_length=tweet_length)
 
 print("========Training Complete========")
 for tweet in output:
