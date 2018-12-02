@@ -7,6 +7,13 @@ from nltk.parse.generate import generate
 from random import randint
 import os
 
+def is_repeating(string):
+    words = string.split(" ")
+    for word in words:
+        if string.count(word) > 2:
+            return True
+    return False
+
 if os.name == "nt":
     tweets = dc.get_cleaned_up_tweet_text_data(filename="trump_tweets_ansi.txt",
                                                get_text=dc.get_tweet_text_data_ansi)
@@ -38,13 +45,16 @@ for sentence in sentences:
     if productions not in all_productions:
         all_productions += productions
 
-grammar = nltk.grammar.CFG(nltk.Nonterminal('ROOT'), all_productions)
+# nltk.grammar.CFG
+grammar = nltk.grammar.induce_pcfg(nltk.Nonterminal('ROOT'), all_productions)
 print(grammar)
+print(all_productions)
 
 new_tweets = []
-for sentence in generate(grammar, depth=10, n=25):
+for sentence in generate(grammar, depth=10, n=100):
     string = ' '.join(sentence)
     if not string in new_tweets:
-        new_tweets.append(string)
-        print("Generated unique tweet:")
-        print(string)
+        if not is_repeating(string):
+            new_tweets.append(string)
+            print("Generated unique tweet:")
+            print(string)
