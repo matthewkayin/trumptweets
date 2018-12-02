@@ -5,35 +5,11 @@ import random
 tweet_text_data = dc.get_cleaned_up_tweet_text_data()
 max_tweets = 2934
 
-"""
-vocabulary = dc.create_vocabulary_from_text_data(text_data=tweet_text_data,
-                                                 max_lines=max_tweets)
-
-print(len(vocabulary))
-
-tweets_list = tweet_text_data.split("\n")
-tweets_to_use = tweets_list[:max_tweets]
-
-tweet_vector_data = dc.create_bag_of_words_from_lines(lines_of_text=tweets_to_use,
-                                                      vocab=vocabulary)
-"""
-
-"""
-dictionary = dc.create_dictionary_gensim(text_data=tweet_text_data,
-                                         max_lines=max_tweets)
-print(dictionary)
-"""
 tweets = tweet_text_data.split("\n")
 print(len(tweets))
 corpus = dc.create_corpus_from_text_data(text_data=tweet_text_data,
                                          max_lines=max_tweets)
 print(len(corpus))
-
-"""
-phrases = Phrases(corpus)
-
-print(phrases.vocab)
-"""
 
 model = dc.create_word2vec_model(corpus=corpus, frequency=10, freedom=25, iterations=10)
 
