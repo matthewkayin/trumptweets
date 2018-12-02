@@ -22,14 +22,6 @@ quote = "Incredible to be with our GREAT HEROES today in California."
 parser = CoreNLPParser(url='http://localhost:9000')
 
 sentences = []
-tweet_range = 10
-upper = randint(tweet_range, len(tweets))
-lower = upper - tweet_range
-for i in range(lower, upper):
-    print(i)
-    sentences += parser.raw_parse(tweets[i])
-#sentences += parser.raw_parse(tweets[0])
-
 productions = []
 min_num_tweets = 30
 end_index = randint(min_num_tweets, len(tweets))
