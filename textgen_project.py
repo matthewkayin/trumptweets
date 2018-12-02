@@ -19,17 +19,17 @@ def pick_random_sample(tweets: list, number_to_pick: int):
 
 
 if os.name == "nt":
-    tweets = dc.get_cleaned_up_tweet_text_data(filename="trump_tweets_ansi.txt",
-                                               get_text=dc.get_tweet_text_data_ansi)
+    tweets = dc.get_cleaned_up_tweet_text_data_less_clean(filename="trump_tweets_ansi.txt",
+                                                          get_text=dc.get_tweet_text_data_ansi)
 else:
-    tweets = dc.get_cleaned_up_tweet_text_data()
+    tweets = dc.get_cleaned_up_tweet_text_data_less_clean()
 
 tool = language_check.LanguageTool('en-US')
 seed_word = None
-degree_freedom = 0.7
+degree_freedom = 0.3
 dropout = 0
-num_epochs = 3
-num_gen_epochs = 3
+num_epochs = 10
+num_gen_epochs = 5
 tweet_length = 140
 tweets_to_use = pick_random_sample(tweets=tweets, number_to_pick=50)
 textgen = textgenrnn()

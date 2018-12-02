@@ -18,9 +18,10 @@ def remove_hyperlink(string):
         word_list.append(word)
     return " ".join(word_list)
 
-def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt", get_text=get_tweet_text_data):
+
+def get_cleaned_up_tweet_text_data_less_clean(filename = "trump_tweets.txt", get_text=get_tweet_text_data):
     tweet_text = get_text(filename=filename)
-    # tweet_text = tweet_text.lower()
+    tweet_text = tweet_text.lower()
     tweet_text = tweet_text.replace("....", " ")
     tweet_text = tweet_text.replace("...", " ")
     tweet_text = tweet_text.replace(". . .", " ")
@@ -35,6 +36,32 @@ def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt", get_text=get_t
     tweet_text = tweet_text.replace("—", "")
     tweet_text = tweet_text.replace(")", "")
     tweet_text = tweet_text.replace("(", "")
+    tweet_text = tweet_text.replace("t.co", "")
+    tweet_text = tweet_text.replace("u.s.", "us")
+    tweet_text = tweet_text.replace("u.s.a.", "usa")
+    tweet_text = tweet_text.replace("jr.", "jr")
+    tweet_text = tweet_text.replace("&amp;", "&")
+    tweet_text = tweet_text.replace("\n", " ")
+
+    sentences = []
+    for potential_sentence in tweet_text.split("."):
+        potential_sentence = remove_hyperlink(potential_sentence)
+        potential_sentence = potential_sentence.strip()
+        if potential_sentence != "" and potential_sentence != " ":
+            # .replace(".", "")
+            sentences.append(potential_sentence)
+    
+    return sentences
+
+
+def get_cleaned_up_tweet_text_data_less_clean(filename = "trump_tweets.txt", get_text=get_tweet_text_data):
+    tweet_text = get_text(filename=filename)
+
+    tweet_text = tweet_text.replace("....", " ")
+    tweet_text = tweet_text.replace("...", " ")
+    tweet_text = tweet_text.replace(". . .", " ")
+    tweet_text = tweet_text.replace("!", ".")
+    tweet_text = tweet_text.replace("?", ".")
     tweet_text = tweet_text.replace("t.co", "")
     tweet_text = tweet_text.replace("u.s.", "us")
     tweet_text = tweet_text.replace("u.s.a.", "usa")
