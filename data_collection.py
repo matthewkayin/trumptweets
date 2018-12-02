@@ -118,9 +118,10 @@ def create_corpus_from_text_data(text_data, max_lines = None):
                 if "http" in word:
                     link_start_index = word.index("http")
                     word = word[:link_start_index]
-                if word not in word_array:
+                if word != "":
                     word_array.append(word)
-            corpus.append(word_array)
+            if word_array != [''] and word_array != []:
+                corpus.append(word_array)
         lines_read += 1
         if lines_read >= max_lines:
             break
