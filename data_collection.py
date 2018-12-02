@@ -48,8 +48,7 @@ def get_cleaned_up_tweet_text_data_less_clean(filename = "trump_tweets.txt", get
         potential_sentence = remove_hyperlink(potential_sentence)
         potential_sentence = potential_sentence.strip()
         if potential_sentence != "" and potential_sentence != " ":
-            # .replace(".", "")
-            sentences.append(potential_sentence)
+            sentences.append(potential_sentence.replace(".", ""))
     
     return sentences
 

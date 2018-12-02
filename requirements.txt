@@ -1,3 +1,5 @@
 gensim
 language-check
 nltk
+textgenrnn
+tensorflow
