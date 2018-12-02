@@ -1,13 +1,19 @@
 import gensim
 
 def get_tweet_text_data(filename = "trump_tweets.txt"):
-    with open("trump_tweets.txt", encoding="utf8") as file:
+    with open(filename, encoding="utf8") as file:
+        tweet_text = file.read()
+    return tweet_text
+
+def get_tweet_text_data_ansi(filename = "trump_tweets_ansi.txt"):
+    with open(filename) as file:
         tweet_text = file.read()
     return tweet_text
 
 
-def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt"):
-    tweet_text = get_tweet_text_data(filename=filename)
+def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt", get_text=get_tweet_text_data):
+    tweet_text = get_text(filename=filename)
+    tweet_text = tweet_text.replace("....", ".")
     tweet_text = tweet_text.replace("...", ".")
     tweet_text = tweet_text.replace(". . .", ".")
     tweet_text = tweet_text.replace(",", "")
@@ -21,6 +27,7 @@ def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt"):
     tweet_text = tweet_text.replace("—", "")
     tweet_text = tweet_text.replace(")", "")
     tweet_text = tweet_text.replace("(", "")
+    tweet_text = tweet_text.replace("t.co", "")
     
     tweet_text = tweet_text.lower()
     return tweet_text
