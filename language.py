@@ -58,16 +58,15 @@ def createSentence(productions, start):
         return createSentence(productions, newString)
 
 if os.name == "nt":
-    tweet_text_data = dc.get_cleaned_up_tweet_text_data(filename="trump_tweets_ansi.txt",
-                                                        get_text=dc.get_tweet_text_data_ansi)
+    tweets = dc.get_cleaned_up_tweet_text_data(filename="trump_tweets_ansi.txt",
+                                               get_text=dc.get_tweet_text_data_ansi)
 else:
-    tweet_text_data = dc.get_cleaned_up_tweet_text_data()
+    tweets = dc.get_cleaned_up_tweet_text_data()
 
 max_tweets = 2934
-tweets = tweet_text_data.split("\n")
+# tweets = tweet_text_data.split(".")
+total_num_tweets = len(tweets)
 
-corpus = dc.create_corpus_from_text_data(text_data=tweet_text_data,
-                                         max_lines=max_tweets)
 quote = "Incredible to be with our GREAT HEROES today in California."
 parser = CoreNLPParser(url='http://localhost:9000')
 

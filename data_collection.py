@@ -13,6 +13,7 @@ def get_tweet_text_data_ansi(filename = "trump_tweets_ansi.txt"):
 
 def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt", get_text=get_tweet_text_data):
     tweet_text = get_text(filename=filename)
+    tweet_text = tweet_text.lower()
     tweet_text = tweet_text.replace("....", ".")
     tweet_text = tweet_text.replace("...", ".")
     tweet_text = tweet_text.replace(". . .", ".")
@@ -28,9 +29,17 @@ def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt", get_text=get_t
     tweet_text = tweet_text.replace(")", "")
     tweet_text = tweet_text.replace("(", "")
     tweet_text = tweet_text.replace("t.co", "")
+    tweet_text = tweet_text.replace("u.s.", "us")
+    tweet_text = tweet_text.replace("u.s.a.", "usa")
+    tweet_text = tweet_text.replace("jr.", "jr")
+    tweet_text = tweet_text.replace("\n", " ")
+
+    sentences = []
+    for potential_sentence in tweet_text.split("."):
+        if potential_sentence != "" and potential_sentence != " ":
+            sentences.append(potential_sentence.replace(".", ""))
     
-    tweet_text = tweet_text.lower()
-    return tweet_text
+    return sentences
 
 
 def split_line_into_sentences(line: str):
