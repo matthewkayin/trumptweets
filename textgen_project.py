@@ -9,7 +9,7 @@ def pick_random_sample(tweets: list, number_to_pick: int):
     used_tweets = []
     picked_tweets = []
     for count in range(0, number_to_pick):
-        random_index = randint(0, total_num_tweets)
+        random_index = randint(0, total_num_tweets - 1)
         while(random_index in used_tweets):
             random_index = randint(0, total_num_tweets)
         print(f"Using tweet number {random_index}")
@@ -28,10 +28,10 @@ tool = language_check.LanguageTool('en-US')
 seed_word = None
 degree_freedom = 0.3
 dropout = 0
-num_epochs = 10
-num_gen_epochs = 5
+num_epochs = 20
+num_gen_epochs = 10
 tweet_length = 140
-tweets_to_use = pick_random_sample(tweets=tweets, number_to_pick=50)
+tweets_to_use = pick_random_sample(tweets=tweets, number_to_pick=500)
 textgen = textgenrnn()
 textgen.reset()
 
