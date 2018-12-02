@@ -1,7 +1,7 @@
 import gensim
 
 def get_tweet_text_data(filename = "trump_tweets.txt"):
-    with open("trump_tweets.txt") as file:
+    with open("trump_tweets.txt", encoding="utf8") as file:
         tweet_text = file.read()
     return tweet_text
 
