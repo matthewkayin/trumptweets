@@ -32,6 +32,7 @@ print(grammar)
 new_tweets = []
 depth = 8
 number_of_productions = 20
+
 for sentence in generate(grammar, depth=depth, n=number_of_productions):
     string = ' '.join(sentence)
     if not string in new_tweets:
