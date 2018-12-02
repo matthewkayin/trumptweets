@@ -1,6 +1,22 @@
 from textgenrnn import textgenrnn
 import data_collection as dc
 import os
+import language_check
+from random import randint
+
+def pick_random_sample(tweets: list, number_to_pick: int):
+    total_num_tweets = len(tweets)
+    used_tweets = []
+    picked_tweets = []
+    for count in range(0, number_to_pick):
+        random_index = randint(0, total_num_tweets)
+        while(random_index in used_tweets):
+            random_index = randint(0, total_num_tweets)
+        print(f"Using tweet number {random_index}")
+        used_tweets.append(random_index)
+        picked_tweets.append(tweets[random_index])
+    return picked_tweets
+
 
 if os.name == "nt":
     tweets = dc.get_cleaned_up_tweet_text_data(filename="trump_tweets_ansi.txt",
@@ -8,10 +24,31 @@ if os.name == "nt":
 else:
     tweets = dc.get_cleaned_up_tweet_text_data()
 
+tool = language_check.LanguageTool('en-US')
+seed_word = "democrats"
+degree_freedom = 0.8
+dropout = 5
+num_epochs = 3
+num_gen_epochs = 3
+tweets_to_use = pick_random_sample(tweets=tweets, number_to_pick=50)
 textgen = textgenrnn()
-textgen.generate()
+textgen.reset()
 
 # textgen.train_from_file("trump_tweets.txt", num_epochs=1)
-textgen.train_on_texts(tweets[0:50], num_epochs=2,  gen_epochs=2)
-output = textgen.generate(1, prefix="I", temperature=0.7, return_as_list=True)
-print(output)
+textgen.train_on_texts(tweets_to_use,
+                       num_epochs=num_epochs,
+                       gen_epochs=num_gen_epochs,
+                       dropout=dropout,
+                       max_gen_length=140)
+
+output = textgen.generate(3,
+                          prefix=seed_word,
+                          temperature=degree_freedom,
+                          return_as_list=True)
+
+print("========Training Complete========")
+for tweet in output:
+    print(f"Tweet before grammar check:\n {tweet}\n")
+    matches = tool.check(tweet)
+    corrected_tweet = language_check.correct(tweet, matches)
+    print(f"Tweet after grammar check:\n {corrected_tweet}\n")

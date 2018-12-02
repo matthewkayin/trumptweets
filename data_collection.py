@@ -10,6 +10,13 @@ def get_tweet_text_data_ansi(filename = "trump_tweets_ansi.txt"):
         tweet_text = file.read()
     return tweet_text
 
+def remove_hyperlink(string):
+    word_list = []
+    for word in string.split(" "):
+        if word.startswith("http"):
+            continue
+        word_list.append(word)
+    return " ".join(word_list)
 
 def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt", get_text=get_tweet_text_data):
     tweet_text = get_text(filename=filename)
@@ -32,10 +39,13 @@ def get_cleaned_up_tweet_text_data(filename = "trump_tweets.txt", get_text=get_t
     tweet_text = tweet_text.replace("u.s.", "us")
     tweet_text = tweet_text.replace("u.s.a.", "usa")
     tweet_text = tweet_text.replace("jr.", "jr")
+    tweet_text = tweet_text.replace("&amp;", "&")
     tweet_text = tweet_text.replace("\n", " ")
 
     sentences = []
     for potential_sentence in tweet_text.split("."):
+        potential_sentence = remove_hyperlink(potential_sentence)
+        potential_sentence = potential_sentence.strip()
         if potential_sentence != "" and potential_sentence != " ":
             sentences.append(potential_sentence.replace(".", ""))
     
