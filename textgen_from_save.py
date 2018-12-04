@@ -14,7 +14,7 @@ textgen = textgenrnn()
 textgen.reset()
 
 # textgen.train_from_file("trump_tweets.txt", num_epochs=1)
-textgen.load("premade_weights.hdf5")
+textgen.load("25_epochs_all_tweet_weights.hdf5")
 
 output = textgen.generate(int(num_tweets),
                           prefix=seed,
@@ -24,5 +24,5 @@ output = textgen.generate(int(num_tweets),
 
 print("========Training Complete========")
 for tweet in output:
-    print(f"Tweet before grammar check:\n {tweet}\n")
+    print(tweet)
 
