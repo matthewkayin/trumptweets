@@ -1,7 +1,7 @@
 from textgenrnn import textgenrnn
 import data_collection as dc
 import os
-import language_check
+# import language_check
 from random import randint
 
 def pick_random_sample(tweets: list, number_to_pick: int):
@@ -27,14 +27,15 @@ if os.name == "nt":
 else:
     tweets = dc.get_text_data_no_sentence_split()
 
-tool = language_check.LanguageTool('en-US')
+# tool = language_check.LanguageTool('en-US')
 seed_word = None
 degree_freedom = 0.2
 dropout = 0
-num_epochs = 2
-num_gen_epochs = 2
+num_epochs = 25
+num_gen_epochs = 5
 tweet_length = 140
-tweets_to_use = pick_random_sample(tweets=tweets, number_to_pick=500)
+# tweets_to_use = pick_random_sample(tweets=tweets, number_to_pick=100)
+tweets_to_use = tweets
 textgen = textgenrnn()
 textgen.reset()
 
@@ -52,9 +53,11 @@ output = textgen.generate(3,
                           max_gen_length=tweet_length)
 
 print("========Training Complete========")
+textgen.generate_samples()
 for tweet in output:
     print(f"Tweet before grammar check:\n {tweet}\n")
-    matches = tool.check(tweet)
-    corrected_tweet = language_check.correct(tweet, matches)
-    print(f"Tweet after grammar check:\n {corrected_tweet}\n")
+    # matches = tool.check(tweet)
+    # corrected_tweet = language_check.correct(tweet, matches)
+    # print(f"Tweet after grammar check:\n {corrected_tweet}\n")
 
+textgen.save("25_epochs_all_tweet_weights.hdf5")
