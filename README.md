@@ -17,3 +17,18 @@ To use the recursive neural network trained for the final presentation of the pr
 NOTE: degree of freedom should be between 0.0 and 1.0 - we recommend a value of 0.5
 <br>
 NOTE: set prefix string = "None" to have the neural network generate an tweet from scratch.
+<br>
+<br>
+**Link to presentation:**
+https://docs.google.com/presentation/d/1HzyWVdOHDMA1x2X8jq8GcAK5PqQRUJlaxHQo2Jvnw0A/edit?usp=sharing
+<br>
+<br>
+**Example output from the recursive neural network:**
+
+"Thank you to Crooked-Hillary pelosi. If you can be created."
+
+"The Fake News Media is that the Democrats want to say that the Democrats will be a great Governor. #MAGA"
+
+"Trump has set Economic Growth on fire. During his time in office the economy has achieved feats most experts thought impossible."
+
+"The Wall Street Journal has made a very special new China today."
